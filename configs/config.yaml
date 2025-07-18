@@ -1,0 +1,79 @@
+# CloudView Configuration File
+# Copy this file to ~/.cloudview.yaml and customize as needed
+
+# Cloud Provider Configurations
+providers:
+  aws:
+    enabled: true
+    # AWS authentication options (choose one):
+    
+    # Option 1: Use AWS profile (recommended)
+    profile: "default"
+    
+    # Option 2: Use access keys (not recommended for production)
+    # access_key_id: "your-access-key-id"
+    # secret_access_key: "your-secret-access-key"
+    # session_token: "your-session-token"  # Optional, for temporary credentials
+    
+    # Option 3: Use IAM role assumption
+    # role_arn: "arn:aws:iam::123456789012:role/CloudViewRole"
+    # external_id: "your-external-id"  # Optional
+    # mfa_serial: "arn:aws:iam::123456789012:mfa/username"  # Optional
+    # duration_seconds: 3600  # Optional, default 1 hour
+    
+    # Default region (required)
+    region: "us-east-1"
+    
+    # Regions to query (IMPORTANT: This scans multiple regions for complete discovery)
+    regions:
+      - "us-east-1"      # N. Virginia (most common)
+      - "us-west-2"      # Oregon
+      - "eu-west-1"      # Ireland
+      # Add more regions where you might have resources:
+      # - "us-east-2"     # Ohio
+      # - "eu-central-1"  # Frankfurt  
+      # - "ap-southeast-1" # Singapore
+      # - "ap-northeast-1" # Tokyo
+
+# Cache Configuration
+cache:
+  enabled: true
+  ttl: 300s  # 5 minutes
+  storage: memory  # memory or disk
+  max_size: "100MB"
+  # directory: "/tmp/cloudview-cache"  # For disk storage
+
+# Output Configuration
+output:
+  format: table  # table, json, yaml, excel
+  colors: true
+  max_width: 120
+  no_header: false
+  compact: false
+
+# Logging Configuration
+logging:
+  level: info  # trace, debug, info, warn, error, fatal, panic
+  format: text  # text or json
+  color: true
+  # file: "/var/log/cloudview.log"  # Optional log file
+
+# Environment Variable Examples:
+# You can override any configuration using environment variables with the CLOUDVIEW_ prefix:
+#
+# AWS Configuration:
+# export CLOUDVIEW_AWS_ENABLED=true
+# export CLOUDVIEW_AWS_PROFILE=myprofile
+# export CLOUDVIEW_AWS_REGION=us-west-2
+# export AWS_PROFILE=myprofile              # Standard AWS env var
+# export AWS_REGION=us-west-2               # Standard AWS env var
+# export AWS_ACCESS_KEY_ID=your-key         # Standard AWS env var
+# export AWS_SECRET_ACCESS_KEY=your-secret  # Standard AWS env var
+#
+# Output Configuration:
+# export CLOUDVIEW_OUTPUT_FORMAT=json
+# export CLOUDVIEW_OUTPUT_COLORS=false
+#
+# Logging Configuration:
+# export CLOUDVIEW_LOG_LEVEL=debug
+# export CLOUDVIEW_LOG_FORMAT=json
